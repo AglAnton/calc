@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <title>Рассчет за проект</title>
+</head>
+<body>
+  
+  <div class="container">
+    <h1 class="my-5">Рассчет за проект</h1>
+
+    <div class="mb-5">
+      <label for="budget" class="form-label">Бюджет</label>
+      <div class="input-group">
+        <div class="input-group-text">&#8381;</div>
+        <input type="text" class="form-control budget" id="budget" placeholder="80 000">
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <label class="form-label">Разработчики</label>
+      
+      <div class="developers">
+        <div class="row developer">
+          <div class="col-md-3 col-12 mb-3">
+            <input type="text" class="form-control name" placeholder="Имя">
+          </div>
+          <div class="col-md-3 col-12 mb-3">
+            <div class="input-group">
+              <div class="input-group-text">Ч</div>
+              <input type="text" class="form-control time" placeholder="Время">
+            </div>
+          </div>
+          <div class="col-md-3 col-12 mb-3">
+            <div class="input-group">
+              <div class="input-group-text">&#8381;</div>
+              <input type="text" class="form-control price" placeholder="Оплата за час">
+            </div>
+          </div>
+          <div class="col-md-3 col-12 mb-3 text-end">
+            <button class="btn btn-danger btn-delete">Удалить</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-add">Добавить +</button>
+    </div>
+
+    <button class="btn btn-success btn-result mb-5">Рассчитать</button>
+
+    <div class="result"></div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
