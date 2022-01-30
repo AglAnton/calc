@@ -33,6 +33,8 @@ $('body').on('click', '.btn-result', function() {
   if (!budget) isError = true;
 
   let result = {};
+  result['Бюджет'] = budget * 0.3;
+  budget *= 0.7;
 
   $('.developer').each((i, el) => {
     let name = $(el).find('.name').val();
@@ -51,17 +53,15 @@ $('body').on('click', '.btn-result', function() {
   }
 
   if (budget > 0) {
-    result['Бюджет'] = budget * 0.3;
-
     if (result['Антон'])
-      result['Антон'] += budget * 0.35;
+      result['Антон'] += budget * 0.5;
     else 
-      result['Антон'] = budget * 0.35;
+      result['Антон'] = budget * 0.5;
 
     if (result['Саша'])
-      result['Саша'] += budget * 0.35;
+      result['Саша'] += budget * 0.5;
     else 
-      result['Саша'] = budget * 0.35;
+      result['Саша'] = budget * 0.5;
   }
 
   let html = '';
