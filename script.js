@@ -3,21 +3,24 @@ $('body').on('click', '.btn-delete', function() {
 });
 
 $('body').on('click', '.btn-add', function() {
+  let devs = '';
+  for (let id in developers) {
+    devs += `
+      <option value="${id}">${developers[id].name}</option>
+    `;
+  }
   $('.developers').append(`
     <div class="row developer">
       <div class="col-md-3 col-12 mb-3">
-        <input type="text" class="form-control name" placeholder="Имя">
+        <select class="form-select dev-id">
+          <option selected>Разработчик</option>
+          ${devs}
+        </select>
       </div>
       <div class="col-md-3 col-12 mb-3">
         <div class="input-group">
           <div class="input-group-text">Ч</div>
           <input type="text" class="form-control time" placeholder="Время">
-        </div>
-      </div>
-      <div class="col-md-3 col-12 mb-3">
-        <div class="input-group">
-          <div class="input-group-text">&#8381;</div>
-          <input type="text" class="form-control price" placeholder="Оплата за час">
         </div>
       </div>
       <div class="col-md-3 col-12 mb-3 text-end">
@@ -33,16 +36,16 @@ $('body').on('click', '.btn-result', function() {
   if (!budget) isError = true;
 
   let result = {};
-  result['Бюджет'] = budget * 0.3;
-  budget *= 0.7;
 
   $('.developer').each((i, el) => {
-    let name = $(el).find('.name').val();
-    let price = parseFloat($(el).find('.price').val());
+    let devId = $(el).find('.dev-id').val(); 
     let time = parseFloat($(el).find('.time').val());
 
-    if (!name || !price || !time) isError = true;
+    if (!devId || !time) isError = true;
     
+    let name = developers[devId].name;
+    let price = developers[devId].price;
+
     result[name] = price * time;
     budget -= price * time;
   });
@@ -52,19 +55,21 @@ $('body').on('click', '.btn-result', function() {
     return;
   }
 
+  let html = '';
+  html += '<hr><h4>Программисты</h4>';
+  for (let name in result) {
+    html += `
+      <p>${name} - <i>${numberWithSpaces(result[name].toFixed(2))}&#8381;</i></p>
+    `;
+  }
+  result = [];
   if (budget > 0) {
-    if (result['Антон'])
-      result['Антон'] += budget * 0.5;
-    else 
-      result['Антон'] = budget * 0.5;
-
-    if (result['Саша'])
-      result['Саша'] += budget * 0.5;
-    else 
-      result['Саша'] = budget * 0.5;
+    html += '<hr><h4>Бизнес</h4>';
+    result['Бюджет'] = budget * 0.3;
+    result['Антон'] = budget * 0.35;
+    result['Саша'] = budget * 0.35;
   }
 
-  let html = '';
   for (let name in result) {
     html += `
       <p>${name} - <i>${numberWithSpaces(result[name].toFixed(2))}&#8381;</i></p>
