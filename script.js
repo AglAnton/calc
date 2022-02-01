@@ -23,7 +23,7 @@ $('body').on('click', '.btn-add', function() {
           <input type="text" class="form-control time" placeholder="Время">
         </div>
       </div>
-      <div class="col-md-3 col-12 mb-3 text-end">
+      <div class="col-md-3 offset-md-3 col-12 offset-0 mb-4 text-end">
         <button class="btn btn-danger btn-delete">Удалить</button>
       </div>
     </div>
