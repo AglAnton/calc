@@ -5,10 +5,10 @@ const developers = {
   },
   2: {
     name: 'Антон',
-    price: '500'
+    price: '340'
   },
   3: {
     name: 'Саша',
-    price: '500'
+    price: '340'
   }
 };
