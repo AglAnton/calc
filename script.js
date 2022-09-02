@@ -35,16 +35,20 @@ $('body').on('click', '.btn-result', function() {
   let budget = parseFloat($('.budget').val().replaceAll(' ', ''));
   if (!budget) isError = true;
 
+  let isTax = $('#is-tax').is(':checked');
+  if (isTax)
+    budget -= budget * TAX;
+
   let result = {};
 
   $('.developer').each((i, el) => {
     let devId = $(el).find('.dev-id').val(); 
     let time = parseFloat($(el).find('.time').val());
-
-    if (!devId || !time) isError = true;
     
-    let name = developers[devId].name;
-    let price = developers[devId].price;
+    let name = developers[devId]?.name;
+    let price = developers[devId]?.price;
+    
+    if (!name || !time) isError = true;
 
     result[name] = price * time;
     budget -= price * time;
@@ -62,12 +66,21 @@ $('body').on('click', '.btn-result', function() {
       <p>${name} - <i>${numberWithSpaces(result[name].toFixed(2))}&#8381;</i></p>
     `;
   }
-  result = [];
+
+  let isFind = $('#is-find').is(':checked');
+
+  result = {};
+  if (isFind)
+    result['За отклики'] = FOR_FINDING;
   if (budget > 0) {
     html += '<hr><h4>Бизнес</h4>';
-    result['Бюджет'] = budget * 0.3;
-    result['Антон'] = budget * 0.35;
-    result['Саша'] = budget * 0.35;
+    result['Бюджет'] = budget * BUDGET;
+    if (isFind)
+      result['Бюджет'] -= FOR_FINDING;
+
+
+    result['Антон'] = budget * OUR_PERCENT;
+    result['Саша'] = budget * OUR_PERCENT;
   }
 
   for (let name in result) {
