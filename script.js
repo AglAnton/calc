@@ -36,8 +36,9 @@ $('body').on('click', '.btn-result', function() {
   if (!budget) isError = true;
 
   let isTax = $('#is-tax').is(':checked');
+  let tax = budget * TAX;
   if (isTax)
-    budget -= budget * TAX;
+    budget -= tax;
 
   let result = {};
 
@@ -70,8 +71,13 @@ $('body').on('click', '.btn-result', function() {
   let isFind = $('#is-find').is(':checked');
 
   result = {};
+  
   if (isFind)
     result['За отклики'] = FOR_FINDING;
+  
+  if (isTax)
+    result['Налог'] = tax;
+
   if (budget > 0) {
     html += '<hr><h4>Бизнес</h4>';
     result['Бюджет'] = budget * BUDGET;
