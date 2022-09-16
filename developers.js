@@ -13,7 +13,7 @@ const developers = [
   },
   {
     name: 'Игорь',
-    price: '250'
+    price: '300'
   },
   {
     name: 'Артем',
