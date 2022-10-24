@@ -44,7 +44,7 @@ $('body').on('click', '.btn-result', function() {
 
   $('.developer').each((i, el) => {
     let devId = $(el).find('.dev-id').val(); 
-    let time = parseFloat($(el).find('.time').val());
+    let time = parseFloat($(el).find('.time').val().replaceAll(',', '.'));
     
     let name = developers[devId]?.name;
     let price = developers[devId]?.price;
