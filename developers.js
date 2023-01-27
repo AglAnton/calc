@@ -18,6 +18,10 @@ const developers = [
   {
     name: 'Артем',
     price: '285'
+  },
+  {
+    name: 'Сефер',
+    price: '100'
   }
 ];
 
