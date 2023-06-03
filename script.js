@@ -1,26 +1,32 @@
-$('body').on('click', '.btn-delete', function() {
-  $(this).closest('.developer').remove();
+$("body").on("click", ".btn-delete", function () {
+  $(this).closest(".developer").remove();
 });
 
-$('body').on('click', '.btn-add', function() {
-  let devs = '';
+$("body").on("click", ".btn-add", function () {
+  let devs = "";
   for (let id in developers) {
     devs += `
       <option value="${id}">${developers[id].name}</option>
     `;
   }
-  $('.developers').append(`
+  $(".developers").append(`
     <div class="row developer">
-      <div class="col-md-3 col-12 mb-3">
+      <div class="col-md-2 col-12 mb-3">
         <select class="form-select dev-id">
           <option selected>Разработчик</option>
           ${devs}
         </select>
       </div>
-      <div class="col-md-3 col-12 mb-3">
+      <div class="col-md-2 col-12 mb-3">
         <div class="input-group">
           <div class="input-group-text">Ч</div>
           <input type="text" class="form-control time" placeholder="Время">
+        </div>
+      </div>
+      <div class="col-md-2 col-12 mb-3">
+        <div class="input-group">
+          <div class="input-group-text">₽/ч</div>
+          <input type="text" class="form-control price" placeholder="Ставка">
         </div>
       </div>
       <div class="col-md-3 offset-md-3 col-12 offset-0 mb-4 text-end">
@@ -30,76 +36,81 @@ $('body').on('click', '.btn-add', function() {
   `);
 });
 
-$('body').on('click', '.btn-result', function() {
+$("body").on("change", ".dev-id", function () {
+  let id = $(this).val();
+  $(this).closest(".row").find(".price").val(developers[id].price);
+});
+
+$("body").on("click", ".btn-result", function () {
   let isError = false;
-  let budget = parseFloat($('.budget').val().replaceAll(' ', ''));
+  let budget = parseFloat($(".budget").val().replaceAll(" ", ""));
   if (!budget) isError = true;
 
-  let isTax = $('#is-tax').is(':checked');
+  let isTax = $("#is-tax").is(":checked");
   let tax = budget * TAX;
-  if (isTax)
-    budget -= tax;
+  if (isTax) budget -= tax;
 
   let result = {};
 
-  $('.developer').each((i, el) => {
-    let devId = $(el).find('.dev-id').val(); 
-    let time = parseFloat($(el).find('.time').val().replaceAll(',', '.'));
-    
+  $(".developer").each((i, el) => {
+    let devId = $(el).find(".dev-id").val();
+    let time = parseFloat($(el).find(".time").val().replaceAll(",", "."));
+    let price = parseFloat($(el).find(".price").val().replaceAll(",", "."));
+
     let name = developers[devId]?.name;
-    let price = developers[devId]?.price;
-    
-    if (!name || !time) isError = true;
+    // let price = developers[devId]?.price;
+
+    if (!name || !time || !price) isError = true;
 
     result[name] = price * time;
     budget -= price * time;
   });
 
   if (isError) {
-    alert('Заполните все поля!');
+    alert("Заполните все поля!");
     return;
   }
 
-  let html = '';
-  html += '<hr><h4>Программисты</h4>';
+  let html = "";
+  html += "<hr><h4>Программисты</h4>";
   for (let name in result) {
     html += `
-      <p>${name} - <i>${numberWithSpaces(result[name].toFixed(2))}&#8381;</i></p>
+      <p>${name} - <i>${numberWithSpaces(
+      result[name].toFixed(2)
+    )}&#8381;</i></p>
     `;
   }
 
-  let isFind = $('#is-find').is(':checked');
+  let isFind = $("#is-find").is(":checked");
 
   result = {};
-  
-  if (isFind)
-    result['За отклики'] = FOR_FINDING;
-  
-  if (isTax)
-    result['Налог'] = tax;
+
+  if (isFind) result["За отклики"] = FOR_FINDING;
+
+  if (isTax) result["Налог"] = tax;
 
   if (budget > 0) {
-    html += '<hr><h4>Бизнес</h4>';
-    result['Бюджет'] = budget * BUDGET;
-    if (isFind)
-      result['Бюджет'] -= FOR_FINDING;
+    html += "<hr><h4>Бизнес</h4>";
+    result["Бюджет"] = budget * BUDGET;
+    if (isFind) result["Бюджет"] -= FOR_FINDING;
 
-
-    result['Антон'] = budget * OUR_PERCENT;
-    result['Саша'] = budget * OUR_PERCENT;
+    result["Антон"] = budget * OUR_PERCENT;
+    result["Саша"] = budget * OUR_PERCENT;
   }
 
   for (let name in result) {
     html += `
-      <p>${name} - <i>${numberWithSpaces(result[name].toFixed(2))}&#8381;</i></p>
+      <p>${name} - <i>${numberWithSpaces(
+      result[name].toFixed(2)
+    )}&#8381;</i></p>
     `;
   }
 
-  $('.result').html(html);
+  $(".result").html(html);
 });
 
-$('.budget, .price').on('input change', function() {
-  let val = $(this).val().replaceAll(' ', '');
+$(".budget, .price").on("input change", function () {
+  let val = $(this).val().replaceAll(" ", "");
   if (val) val = numberWithSpaces(val);
   $(this).val(val);
 });

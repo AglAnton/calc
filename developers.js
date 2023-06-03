@@ -1,32 +1,36 @@
 const developers = [
   {
-    name: 'Паша',
-    price: '275'
+    name: "Паша",
+    price: "275",
   },
   {
-    name: 'Антон',
-    price: '340'
+    name: "Антон",
+    price: "500",
   },
   {
-    name: 'Саша',
-    price: '340'
+    name: "Саша",
+    price: "500",
   },
   {
-    name: 'Игорь',
-    price: '300'
+    name: "Игорь",
+    price: "300",
   },
   {
-    name: 'Артем',
-    price: '285'
+    name: "Артем",
+    price: "285",
   },
   {
-    name: 'Сефер',
-    price: '100'
+    name: "Сефер",
+    price: "150",
   },
   {
-    name: 'Эльдар',
-    price: '100'
-  }
+    name: "Эльдар",
+    price: "100",
+  },
+  {
+    name: "Сережа",
+    price: "100",
+  },
 ];
 
 const BUDGET = 0.3;
