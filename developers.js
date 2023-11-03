@@ -31,6 +31,10 @@ const developers = [
     name: "Сережа",
     price: "100",
   },
+  {
+    name: "Денис",
+    price: "100",
+  },
 ];
 
 const BUDGET = 0.3;
